@@ -26,7 +26,7 @@ def load_llama():
     return pipeline("text-generation", model=model, tokenizer=tokenizer)
 
 # Generate text for GPT-2
-def generate_gpt2(prompt, model, tokenizer, device, max_length=100, temperature=0.7, top_p=0.9):
+def generate_gpt2(prompt, model, tokenizer, device, max_length=600, temperature=0.7, top_p=0.9):
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
     with torch.no_grad():
         outputs = model.generate(
