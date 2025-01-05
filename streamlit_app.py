@@ -26,7 +26,7 @@ def load_llama():
     return pipeline("text-generation", model=model, tokenizer=tokenizer)
 
 # Generate text for GPT-2
-def generate_gpt2(prompt, model, tokenizer, device, max_length=600, temperature=0.7, top_p=0.9):
+def generate_gpt2(prompt, model, tokenizer, device, max_length=200, temperature=0.7, top_p=0.9):
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
     with torch.no_grad():
         outputs = model.generate(
@@ -40,7 +40,7 @@ def generate_gpt2(prompt, model, tokenizer, device, max_length=600, temperature=
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 # Generate text for Llama 3.2
-def generate_llama(prompt, pipe, max_length=600):
+def generate_llama(prompt, pipe, max_length=100):
     response = pipe(prompt, max_length=max_length, num_return_sequences=1)
     return response[0]["generated_text"]
 
