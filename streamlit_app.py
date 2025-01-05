@@ -57,14 +57,20 @@ prompt = st.text_area("Enter your prompt", "What is AI?")
 if st.button("Generate Text"):
     if model_selection == "GPT-2":
         model, tokenizer, device = load_gpt2()
-        output = generate_gpt2(prompt, model, tokenizer, device)
-        st.subheader("Generated Text (GPT-2):")
-        st.write(output)
+        with st.spinner('Generating text with GPT-2...'):
+            try:
+                output = generate_gpt2(prompt, model, tokenizer, device)
+                st.subheader("Generated Text (GPT-2):")
+                st.write(output)
+            except Exception as e:
+                st.error(f"Error generating text with GPT-2: {e}")
+
     elif model_selection == "Llama 3.2":
-        try:
-            llama_pipe = load_llama()
-            output = generate_llama(prompt, llama_pipe)
-            st.subheader("Generated Text (Llama 3.2):")
-            st.write(output)
-        except Exception as e:
-            st.error(f"Error generating text with Llama 3.2: {e}")
+        with st.spinner('Generating text with Llama 3.2...'):
+            try:
+                llama_pipe = load_llama()
+                output = generate_llama(prompt, llama_pipe)
+                st.subheader("Generated Text (Llama 3.2):")
+                st.write(output)
+            except Exception as e:
+                st.error(f"Error generating text with Llama 3.2: {e}")
